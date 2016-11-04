@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <script name="jquery/jquery.js" library="primefaces"></script>
+    </h:head>
+    <h:form id="form" >
+        <p:fileUpload fileUploadListener="#{fileUploadController.upload}" multiple="false" allowTypes="/(\.|\/)(xml)$/"/>
+    </h:form>
+    <h:form>
+        <p:toolbar>
+            <f:facet name="left">
+                <p:commandButton class="cb" type="submit" value="printOID" icon="ui-icon-circle-triangle-e" action="OIDStructure.xhtml" >
+
+                </p:commandButton>
+                <p:commandButton class="cb" type="submit" value="printStructure" icon="ui-icon-circle-triangle-e" action="NameStructure.xhtml"/>
+                <p:commandButton class="cb" type="submit" value="printData" icon="ui-icon-circle-triangle-e" />
+                <h:outputText  value="Just HTML Separator" escape="false"></h:outputText>
+            </f:facet>
+        </p:toolbar>
+    </h:form>
+</html>
