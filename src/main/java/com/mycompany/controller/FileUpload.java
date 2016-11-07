@@ -60,18 +60,6 @@ public class FileUpload {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-    }
-
-    public boolean isDisabled() {
-        return disabled;
-    }
-
-    public void enabled() {
-        this.disabled = false;
-    }
-
-    public boolean setDisable() {
-        return true;
+        
     }
 }

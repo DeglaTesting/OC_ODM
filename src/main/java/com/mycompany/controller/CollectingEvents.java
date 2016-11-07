@@ -26,7 +26,6 @@ import org.xml.sax.SAXException;
 public class CollectingEvents {
     
     static File inputFile;
-    //public File inputFile;
     
     public CollectingEvents (){
        inputFile = UploadedFile.uploadedFile;
@@ -36,7 +35,6 @@ public class CollectingEvents {
         List<StudyEvent> lStudyEvent = new ArrayList();
         Object[] res = new Object[2];
         try {
-           // inputFile = new File("C:\\Users\\sa841\\Documents\\sync_first.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);

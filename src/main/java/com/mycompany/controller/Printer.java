@@ -37,13 +37,9 @@ public class Printer {
             CollectingStudyEventForms collectingStudyEventForms = new CollectingStudyEventForms();
             List<StudyEventForm> eventFormCollection = collectingStudyEventForms.collectingStudyEventForms(doc, eventCollection.get(i).getEventOID());
             for (int j = 0; j < eventFormCollection.size(); j++) {
-                // printOID = printOID.concat(" "+eventFormCollection.get(j).getFormOID());
-                //printStructure = printStructure.concat(" "+eventFormCollection.get(j).getFormName());
                 CollectingItemGroup collectingItemGroup = new CollectingItemGroup();
                 List<ItemGroup> itemGroupCollection = collectingItemGroup.collectingItemGroup(doc, eventFormCollection.get(j).getFormOID());
                 for (int k = 0; k < itemGroupCollection.size(); k++) {
-                    // printOID = printOID.concat(" "+itemGroupCollection.get(k).getItemGroupOID());
-                    // printStructure = printStructure.concat(" "+itemGroupCollection.get(k).getItemGroupName());
                     CollectingItems collectingItems = new CollectingItems();
                     List<Item> itemCollection = collectingItems.collectingItems(doc, itemGroupCollection.get(k).getItemGroupOID());
                     for (int m = 0; m < itemCollection.size(); m++) {
