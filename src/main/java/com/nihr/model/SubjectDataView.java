@@ -49,10 +49,7 @@ public class SubjectDataView implements Serializable {
 
     public List<Subject> subjectFormatter(List<String> lsubjectOutput) {
         for (int i = 0; i < lsubjectOutput.size(); i++) {
-             System.out.println("333333333333333333333 " + lsubjectOutput.get(i));
             String[] subMetaData = lsubjectOutput.get(i).split(" ");
-            System.out.println("333333333333333333333 " + subMetaData.length);
-             System.out.println("333333333333333333333 " + subMetaData[0] + " "+subMetaData[1] + " "+ subMetaData[2]+ " "+ subMetaData[3] + " "+subMetaData[4]+ " "+ subMetaData[5]+ " "+ subMetaData[6]+ " "+subMetaData[7]+ " "+ subMetaData[8]+ " "+subMetaData[9]);
             Subject subject = new Subject(subMetaData[0], subMetaData[1], subMetaData[2], subMetaData[3], subMetaData[4], subMetaData[5], subMetaData[6], subMetaData[7], subMetaData[8], subMetaData[9]);
             lsubject.add(subject);
         }

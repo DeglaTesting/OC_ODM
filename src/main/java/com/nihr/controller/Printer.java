@@ -60,7 +60,6 @@ public class Printer {
 
     public void printStructure(List<NameStructure> lNameStructure) {
         System.out.println("****** PrintStructure *******");
-        System.out.println("GGGGGGGGGGGGGGG" + lprintStructure.size());
         for (int i = 0; i < lprintStructure.size(); i++) {
             System.out.println(lprintStructure.get(i));
             String[] names = lprintStructure.get(i).split(";;");

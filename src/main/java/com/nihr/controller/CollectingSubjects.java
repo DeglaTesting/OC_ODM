@@ -87,7 +87,6 @@ public class CollectingSubjects {
             File inputFile = UploadedFile.uploadedFile;
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            System.out.println("444444444444444444 " + inputFile.getPath());
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
             collectingSubjects(doc);
