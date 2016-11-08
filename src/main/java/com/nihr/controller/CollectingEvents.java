@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.controller;
+package com.nihr.controller;
 
-import com.mycompany.model.StudyEvent;
+import com.nihr.model.StudyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,10 +25,10 @@ import org.xml.sax.SAXException;
  */
 public class CollectingEvents {
     
-    static File inputFile;
+        static File inputFile;
     
     public CollectingEvents (){
-       inputFile = UploadedFile.uploadedFile;
+        inputFile = UploadedFile.getUploadedFile();
     }
 
     public Object[] collectingStudyEvents() {
@@ -37,6 +37,7 @@ public class CollectingEvents {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            System.out.println("????????????????" +inputFile.getPath());            
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
             res[0] = doc;

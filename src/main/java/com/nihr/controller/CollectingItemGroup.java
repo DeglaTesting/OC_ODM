@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.controller;
+package com.nihr.controller;
 
-import com.mycompany.model.Item;
+import com.nihr.model.ItemGroup;
 import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Document;
@@ -17,48 +17,47 @@ import org.w3c.dom.NodeList;
  *
  * @author sa841
  */
-public class CollectingItems {
+public class CollectingItemGroup {
 
-    public List<Item> collectingItems(Document doc, String studyItemGroupOID) {
-        List<Item> lItem = new ArrayList();
-        NodeList nlItemGroup = doc.getElementsByTagName("ItemGroupDef");
-        for (int i = 0; i < nlItemGroup.getLength(); i++) {
-            Node nItemGroup = nlItemGroup.item(i);
-            if (nItemGroup.getNodeType() == Node.ELEMENT_NODE) {
-                Element eItemGroup = (Element) nItemGroup;
-                if (eItemGroup.getAttribute("OID").equals(studyItemGroupOID)) {
-                    NodeList nlItem = nItemGroup.getChildNodes();
-                    for (int j = 0; j < nlItem.getLength(); j++) {
-                        Node nItem = nlItem.item(j);
-                        if ((nItem.getNodeType() == Node.ELEMENT_NODE) && (nItem.getNodeName().equals("ItemRef"))) {
-                            Element eItem = (Element)nItem;
-                            Item item = new Item(eItem.getAttribute("ItemOID"));
-                            findItemName(doc, eItem.getAttribute("ItemOID"), item);
-                            lItem.add(item);
+    public List<ItemGroup> collectingItemGroup(Document doc, String studyEventFormOID) {
+        List<ItemGroup> lItemGroup = new ArrayList();
+        NodeList nlFormDef = doc.getElementsByTagName("FormDef");
+        for (int i = 0; i < nlFormDef.getLength(); i++) {
+            Node nFormDef = nlFormDef.item(i);
+            if (nFormDef.getNodeType() == Node.ELEMENT_NODE) {
+                Element eFormDef = (Element) nFormDef;
+                if (eFormDef.getAttribute("OID").equals(studyEventFormOID)) {
+                    NodeList nlItemGroupRef = nFormDef.getChildNodes();
+                    for (int j = 0; j < nlItemGroupRef.getLength(); j++) {
+                        Node nItemGroupRef = nlItemGroupRef.item(j);
+                        if ((nItemGroupRef.getNodeType() == Node.ELEMENT_NODE) && (nItemGroupRef.getNodeName().equals("ItemGroupRef"))) {
+                            Element eItemGroupRef = (Element)nItemGroupRef;
+                            ItemGroup itemGroup = new ItemGroup(eItemGroupRef.getAttribute("ItemGroupOID"));
+                            findItemGroupName(doc, eItemGroupRef.getAttribute("ItemGroupOID"), itemGroup);
+                            lItemGroup.add(itemGroup);
                         }
                     }
                 }
             }
         }
-        return lItem;
+        return lItemGroup;
     }
-    
-    public void findItemName(Document doc, String itemOID, Item item){
-        NodeList nlItem = doc.getElementsByTagName("ItemDef");
-        for (int i = 0; i < nlItem.getLength(); i++) {
-            Node nItem = nlItem.item(i);
-            if (nItem.getNodeType() == Node.ELEMENT_NODE) {
-                Element eItem= (Element) nItem;
-                if (eItem.getAttribute("OID").equals(itemOID)) {
-                    item.setItemName(eItem.getAttribute("Name"));
+
+    public void findItemGroupName(Document doc, String itemGroupOID, ItemGroup itemGroup) {
+        NodeList nlGroupDef = doc.getElementsByTagName("ItemGroupDef");
+        for (int i = 0; i < nlGroupDef.getLength(); i++) {
+            Node nGroupDef = nlGroupDef.item(i);
+            if (nGroupDef.getNodeType() == Node.ELEMENT_NODE) {
+                Element eGroupDef = (Element) nGroupDef;
+                if (eGroupDef.getAttribute("OID").equals(itemGroupOID)) {
+                    itemGroup.setItemGroupName(eGroupDef.getAttribute("Name"));
                 }
             }
-        }  
+        }
     }
 
-    public List<Item> collectingSubjectItems(Document doc, String subjectOID, String studyEventOID, String studyEventRepeatingKey, String formOID, String groupItemOID) {
-        List<Item> lSubjectItem = new ArrayList();
-
+    public List<ItemGroup> collectingSubjectItemGroups(Document doc, String subjectOID, String studyEventOID, String studyEventRepeatingKey, String formOID) {
+        List<ItemGroup> lSubjectItemGroup = new ArrayList();
         if (studyEventRepeatingKey.equals("0")) {
             studyEventRepeatingKey = "";
         }
@@ -86,19 +85,9 @@ public class CollectingItems {
                                                 Node nItemGroupData = nlItemGroupData.item(l);
                                                 if ((nItemGroupData.getNodeType() == Node.ELEMENT_NODE) && (nItemGroupData.getNodeName().equals("ItemGroupData"))) {
                                                     Element eItemGroupData = (Element) nItemGroupData;
-                                                    if (eItemGroupData.getAttribute("ItemGroupOID").equals(groupItemOID)) {
-                                                        NodeList nlItemData = nItemGroupData.getChildNodes();
-                                                        for (int m = 0; m < nlItemData.getLength(); m++) {
-                                                            Node nItemData = nlItemData.item(m);
-                                                            if ((nItemData.getNodeType() == Node.ELEMENT_NODE) && (nItemData.getNodeName().equals("ItemData"))) {
-                                                                Element eItemData = (Element) nItemData;
-                                                                Item item = new Item(eItemData.getAttribute("ItemOID"));
-                                                                item.setValue(eItemData.getAttribute("Value"));
-                                                                lSubjectItem.add(item);
-
-                                                            }
-                                                        }
-                                                    }
+                                                    ItemGroup itemGroup = new ItemGroup(eItemGroupData.getAttribute("ItemGroupOID"));
+                                                    itemGroup.setRepeatingKey(eItemGroupData.getAttribute("ItemGroupRepeatKey"));
+                                                    lSubjectItemGroup.add(itemGroup);
                                                 }
                                             }
                                         }
@@ -111,6 +100,7 @@ public class CollectingItems {
             }
         }
 
-        return lSubjectItem;
+        return lSubjectItemGroup;
     }
+
 }

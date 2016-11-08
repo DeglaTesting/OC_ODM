@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.controller;
+package com.nihr.controller;
 
-import com.mycompany.model.StudyEventForm;
+import com.nihr.model.StudyEventForm;
 import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Document;

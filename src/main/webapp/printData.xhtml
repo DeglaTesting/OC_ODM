@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <p:dataTable var="Subject" value="#{subjectData.lsubject}">
+        <p:column headerText="Subject OID">
+            <h:outputText value="#{Subject.subjectOID}" />
+        </p:column>
+        <p:column headerText="Event OID">
+            <h:outputText value="#{Subject.eventOID}" />
+        </p:column>
+        <p:column headerText="Event repeating key">
+            <h:outputText value="#{Subject.eventRepeatingKey}" />
+        </p:column>
+        <p:column headerText="Event status">
+            <h:outputText value="#{Subject.eventStatus}" />
+        </p:column>
+        <p:column headerText="Form OID">
+            <h:outputText value="#{Subject.eventFormOID}" />
+        </p:column>
+        <p:column headerText="Form status">
+            <h:outputText value="#{Subject.eventFormStatus}" />
+        </p:column>
+        <p:column headerText="GroupITem OID">
+            <h:outputText value="#{Subject.groupItemOID}" />
+        </p:column>
+        <p:column headerText="GroupItem repeating key">
+            <h:outputText value="#{Subject.groupItemRepeatingKey}" />
+        </p:column>
+        <p:column headerText="Item OID">
+            <h:outputText value="#{Subject.itemOID}" />
+        </p:column>
+        <p:column headerText="Item value">
+            <h:outputText value="#{Subject.itemValue}" />
+        </p:column>
+    </p:dataTable>
+</ui:composition>

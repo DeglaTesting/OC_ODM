@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.model;
+package com.nihr.model;
 
-import com.mycompany.controller.Printer;
+import com.nihr.controller.Printer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import javax.faces.bean.ManagedBean;
  *
  * @author sa841
  */
-@ManagedBean(name = "OIDStructureView")
+@ManagedBean(name = "oidStructure")
 public class OIDStructureView implements Serializable {
 
     public List<OIDStructure> lOIDStructure;

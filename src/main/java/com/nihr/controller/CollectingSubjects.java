@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.controller;
+package com.nihr.controller;
 
-import com.mycompany.model.*;
+import com.nihr.model.Item;
+import com.nihr.model.StudyEvent;
+import com.nihr.model.StudyEventForm;
+import com.nihr.model.ItemGroup;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,41 +30,37 @@ public class CollectingSubjects {
 
     List<String> subjectOutput;
     List<String> lSubjectOID;
-    
-    
-    public CollectingSubjects(){
+
+    public CollectingSubjects() {
         subjectOutput = new ArrayList();
     }
 
     public void collectingSubjectMetaData(Document doc, String subjectOID) {
-        
-        List<StudyEvent> lSubjectStudyEvent = new ArrayList();
+
+
         CollectingEvents CollectingEvents = new CollectingEvents();
-        lSubjectStudyEvent = CollectingEvents.collectingSubjectStudyEvents(subjectOID, doc);
+        List<StudyEvent> lSubjectStudyEvent = CollectingEvents.collectingSubjectStudyEvents(subjectOID, doc);
         for (int i = 0; i < lSubjectStudyEvent.size(); i++) {
             String sSubjectStudyEvent = lSubjectStudyEvent.get(i).getEventOID();
             sSubjectStudyEvent = sSubjectStudyEvent.concat(" " + lSubjectStudyEvent.get(i).getRepeatingKey());
             sSubjectStudyEvent = sSubjectStudyEvent.concat(" " + lSubjectStudyEvent.get(i).getStatus());
-            List<StudyEventForm> lSubjectStudyEventForm = new ArrayList();
             CollectingStudyEventForms collectingStudyEventForms = new CollectingStudyEventForms();
-            lSubjectStudyEventForm = collectingStudyEventForms.collectingSubjectStudyEventForms(doc, "SS_LAPTOP_S", lSubjectStudyEvent.get(i).getEventOID(), lSubjectStudyEvent.get(i).getRepeatingKey());
+            List<StudyEventForm> lSubjectStudyEventForm = collectingStudyEventForms.collectingSubjectStudyEventForms(doc, "SS_LAPTOP_S", lSubjectStudyEvent.get(i).getEventOID(), lSubjectStudyEvent.get(i).getRepeatingKey());
             for (int j = 0; j < lSubjectStudyEventForm.size(); j++) {
                 String sSubjectStudyEventForm = lSubjectStudyEventForm.get(j).getFormOID();
                 sSubjectStudyEventForm = sSubjectStudyEventForm.concat(" " + lSubjectStudyEventForm.get(j).getStatus());
                 CollectingItemGroup collectingItemGroup = new CollectingItemGroup();
-                List<ItemGroup> lSubjectItemGroup = new ArrayList();
-                lSubjectItemGroup = collectingItemGroup.collectingSubjectItemGroups(doc, "SS_LAPTOP_S", lSubjectStudyEvent.get(i).getEventOID(), lSubjectStudyEvent.get(i).getRepeatingKey(), lSubjectStudyEventForm.get(j).getFormOID());
+                List<ItemGroup> lSubjectItemGroup = collectingItemGroup.collectingSubjectItemGroups(doc, "SS_LAPTOP_S", lSubjectStudyEvent.get(i).getEventOID(), lSubjectStudyEvent.get(i).getRepeatingKey(), lSubjectStudyEventForm.get(j).getFormOID());
                 for (int k = 0; k < lSubjectItemGroup.size(); k++) {
                     String sSubjectItemGroup = lSubjectItemGroup.get(k).getItemGroupOID();
                     sSubjectItemGroup = sSubjectItemGroup.concat(" " + lSubjectItemGroup.get(k).getRepeatingKey());
-                    List<Item> lSubjectItem = new ArrayList();
                     CollectingItems collectingITems = new CollectingItems();
-                    lSubjectItem = collectingITems.collectingSubjectItems(doc, "SS_LAPTOP_S", lSubjectStudyEvent.get(i).getEventOID(), lSubjectStudyEvent.get(i).getRepeatingKey(), lSubjectStudyEventForm.get(j).getFormOID(), lSubjectItemGroup.get(k).getItemGroupOID());
+                    List<Item> lSubjectItem = collectingITems.collectingSubjectItems(doc, "SS_LAPTOP_S", lSubjectStudyEvent.get(i).getEventOID(), lSubjectStudyEvent.get(i).getRepeatingKey(), lSubjectStudyEventForm.get(j).getFormOID(), lSubjectItemGroup.get(k).getItemGroupOID());
                     for (int m = 0; m < lSubjectItem.size(); m++) {
                         String sSubjetcItem = lSubjectItem.get(m).getItemOID();
                         sSubjetcItem = sSubjetcItem.concat(" " + lSubjectItem.get(m).getValue());
                         String out = subjectOID;
-                        out = out.concat(" "+sSubjectStudyEvent).concat(" " + sSubjectStudyEventForm).concat(" " + sSubjectItemGroup).concat(" " + sSubjetcItem);
+                        out = out.concat(" " + sSubjectStudyEvent).concat(" " + sSubjectStudyEventForm).concat(" " + sSubjectItemGroup).concat(" " + sSubjetcItem);
                         subjectOutput.add(out);
                     }
                 }
@@ -83,23 +82,25 @@ public class CollectingSubjects {
         }
     }
 
-    public void collectingSubjectsMetaData() {
+    public  List<String> collectingSubjectsMetaData() {
         try {
             File inputFile = UploadedFile.uploadedFile;
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            System.out.println("444444444444444444 " + inputFile.getPath());
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
             collectingSubjects(doc);
-            for(int i=0;i< lSubjectOID.size(); i++){
+            for (int i = 0; i < lSubjectOID.size(); i++) {
                 collectingSubjectMetaData(doc, lSubjectOID.get(i));
             }
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             ex.getMessage();
         }
+        return subjectOutput;
     }
 
-    public void print() {
+   /* public void print() {
         for (int i = 0; i < subjectOutput.size(); i++) {
             System.out.println(subjectOutput.get(i));
         }
@@ -109,5 +110,5 @@ public class CollectingSubjects {
         CollectingSubjects collectingSubjects = new CollectingSubjects();
         collectingSubjects.collectingSubjectsMetaData();
         collectingSubjects.print();
-    }
+    }*/
 }

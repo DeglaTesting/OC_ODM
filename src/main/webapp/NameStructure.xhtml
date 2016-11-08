@@ -1,28 +1,21 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <p:dataTable var="NameStructure" value="#{NameStructureView.getlOIDStructure()}">
-            <p:column headerText="Event OID">
-                <h:outputText value="#{NameStructure.eventName}" />
-            </p:column>
-            <p:column headerText="Form OID">
-                <h:outputText value="#{NameStructure.formName}" />
-            </p:column>
-            <p:column headerText="ItemGroup OID">
-                <h:outputText value="#{NameStructure.groupName}" />
-            </p:column>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-            <p:column headerText="Item OID">
-                <h:outputText value="#{NameStructure.itemName}" />
-            </p:column>
-        </p:dataTable>
-    </h:body>
-</html>
+    <p:dataTable var="NameStructure" value="#{nameStructure.getlOIDStructure()}">
+        <p:column headerText="Event name">
+            <h:outputText value="#{NameStructure.eventName}" />
+        </p:column>
+        <p:column headerText="Form name">
+            <h:outputText value="#{NameStructure.formName}" />
+        </p:column>
+        <p:column headerText="ItemGroup name">
+            <h:outputText value="#{NameStructure.groupName}" />
+        </p:column>
+        <p:column headerText="Item name">
+            <h:outputText value="#{NameStructure.itemName}" />
+        </p:column>
+    </p:dataTable>
+</ui:composition>
 

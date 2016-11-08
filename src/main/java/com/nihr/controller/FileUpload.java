@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.controller;
+package com.nihr.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,22 +20,20 @@ import org.primefaces.event.FileUploadEvent;
  *
  * @author sa841
  */
-@ManagedBean(name = "fileUploadController")
+@ManagedBean(name = "fileUploader")
 public class FileUpload {
 
     public String filePath;
-    public boolean disabled = true;
-    private String destination = "C:\\Users\\sa841\\Documents\\";
+    private final String destination = "C:\\Users\\sa841\\Documents\\";
 
     public void upload(FileUploadEvent event) {
-
-        FacesMessage msg = new FacesMessage("Success! ", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
         try {
+       
             copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
             filePath = destination + event.getFile().getFileName();
             UploadedFile.uploadedFile = new File(filePath);
-            System.out.println("@@@@@@@@@@" + UploadedFile.uploadedFile.getName());
+            FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,7 +54,6 @@ public class FileUpload {
             out.flush();
             out.close();
             System.out.println("New file created!");
-            System.out.println("@@@@@@@@@@" + this.disabled);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

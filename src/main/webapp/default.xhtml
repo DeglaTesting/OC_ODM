@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">  
+    <h:form style="margin-top: 70px">
+        <p:fieldset legend="printOID" toggleable="true" toggleSpeed="500" style="margin: 20px">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputText value="This method will print all the StudyEvent OID, StudyEventForm OID, GroupItem OID, Item OID relatives to the specific study."></h:outputText>
+            </h:panelGrid>
+        </p:fieldset>
+        <p:fieldset legend="NameStructure" toggleable="true" toggleSpeed="500" style="margin: 20px">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputText value="This method will print all the StudyEvent Name, StudyEventForm Name, GroupItem Name, Item Name relatives to the specific study."></h:outputText>
+            </h:panelGrid>
+        </p:fieldset>
+        <p:fieldset legend="printData" toggleable="true" toggleSpeed="500" style="margin: 20px">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputText value="All the available subjects in the study; their events OID, event repeating key, event's status, eventForm OID, eventForm's status, groupItem OID, groupITem repeating key, Item OID and the item value."></h:outputText>
+            </h:panelGrid>
+        </p:fieldset>  
+    </h:form>
+</ui:composition>
+
+

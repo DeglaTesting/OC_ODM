@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.controller;
+package com.nihr.controller;
 
 import java.io.File;
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author sa841
  */
+@ManagedBean (name="uploadedFile")
 public class UploadedFile {
 
     public static File uploadedFile;
-
-
+        
     public static File getUploadedFile() {
         return uploadedFile;
     }
@@ -23,7 +24,5 @@ public class UploadedFile {
     public static void setUploadedFile(File uploadedFile) {
         UploadedFile.uploadedFile = uploadedFile;
     }
-
-    
 
 }

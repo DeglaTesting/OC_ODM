@@ -3,9 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.controller;
+package com.nihr.controller;
 
-import com.mycompany.model.*;
+import com.nihr.model.NameStructure;
+import com.nihr.model.Item;
+import com.nihr.model.StudyEvent;
+import com.nihr.model.StudyEventForm;
+import com.nihr.model.ItemGroup;
+import com.nihr.model.OIDStructure;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -15,7 +20,7 @@ import org.w3c.dom.Document;
  *
  * @author sa841
  */
-@ManagedBean(name = "printer")
+@ManagedBean(name = "print")
 public class Printer {
 
     List<String> lprintStructure;
@@ -44,7 +49,7 @@ public class Printer {
                     List<Item> itemCollection = collectingItems.collectingItems(doc, itemGroupCollection.get(k).getItemGroupOID());
                     for (int m = 0; m < itemCollection.size(); m++) {
                         String sprintOID = printOID.concat(" " + eventFormCollection.get(j).getFormOID()).concat(" " + itemGroupCollection.get(k).getItemGroupOID()).concat(" " + itemCollection.get(m).getItemOID());
-                        String sprintStructure = printStructure.concat(" " + eventFormCollection.get(j).getFormName()).concat(" " + itemGroupCollection.get(k).getItemGroupName()).concat(" " + itemCollection.get(m).getItemName());
+                        String sprintStructure = printStructure.concat(";;" + eventFormCollection.get(j).getFormName()).concat(";;" + itemGroupCollection.get(k).getItemGroupName()).concat(";;" + itemCollection.get(m).getItemName());
                         lprintStructure.add(sprintStructure);
                         lprintOID.add(sprintOID);
                     }
@@ -55,11 +60,12 @@ public class Printer {
 
     public void printStructure(List<NameStructure> lNameStructure) {
         System.out.println("****** PrintStructure *******");
+        System.out.println("GGGGGGGGGGGGGGG" + lprintStructure.size());
         for (int i = 0; i < lprintStructure.size(); i++) {
             System.out.println(lprintStructure.get(i));
-            String[] names = lprintStructure.get(i).split(" ");
+            String[] names = lprintStructure.get(i).split(";;");
             NameStructure nameStructure = new NameStructure(names[0], names[1], names[2], names[3]);
-            lNameStructure.add(nameStructure);  
+            lNameStructure.add(nameStructure);
         }
     }
 
@@ -72,7 +78,7 @@ public class Printer {
         }
     }
 
-   /* public static void main(String[] args) {
+    /* public static void main(String[] args) {
         Printer printer = new Printer();
         printer.collectingMetaData();
         System.out.println("****** PrintStructure *******");
